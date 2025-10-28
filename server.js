@@ -7,11 +7,11 @@ require('dotenv').config();
 
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/auth');
+const { isAuthenticated } = require('./middleware/authMiddleware');
 
 connectDB();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
@@ -35,7 +35,6 @@ app.use(
     })
 );
 
-
 app.use('/api', authRoutes);
 
 app.get('/', (req, res) => {
@@ -50,13 +49,16 @@ app.get('/register', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'register.html'));
 });
 
-app.get('/secret', (req, res) => {
+app.get('/secret', isAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'secret.html'));
 });
 
-// app.listen(PORT, () => {
-//     console.log(`Сервер працює на http://localhost:${PORT}`);
-// });
 
+if (process.env.NODE_ENV !== 'production') {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () =>
+        console.log(`Сервер працює на http://localhost:${PORT}`)
+    );
+}
 
 module.exports = app;
