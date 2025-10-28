@@ -54,9 +54,9 @@ app.get('/secret', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'secret.html'));
 });
 
-app.listen(PORT, () => {
-    console.log(`Сервер працює на http://localhost:${PORT}`);
-});
+// app.listen(PORT, () => {
+//     console.log(`Сервер працює на http://localhost:${PORT}`);
+// });
 
 
 module.exports = app;
