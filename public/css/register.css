@@ -1,0 +1,125 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0;
+}
+.container {
+    background: white;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 450px;
+    width: 90%;
+}
+h1 {
+    color: #48bb78;
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+    text-align: center;
+}
+.subtitle {
+    color: #666;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.form-group {
+    margin-bottom: 1.5rem;
+}
+label {
+    display: block;
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: border 0.3s;
+}
+input:focus {
+    outline: none;
+    border-color: #48bb78;
+}
+button {
+    width: 100%;
+    padding: 1rem;
+    background: #48bb78;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+button:hover {
+    background: #38a169;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(72, 187, 120, 0.4);
+}
+button:disabled {
+    background: #cbd5e0;
+    cursor: not-allowed;
+    transform: none;
+}
+.error {
+    background: #fed7d7;
+    color: #c53030;
+    padding: 0.8rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    display: none;
+}
+.error.active {
+    display: block;
+}
+.success {
+    background: #c6f6d5;
+    color: #22543d;
+    padding: 0.8rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    display: none;
+}
+.success.active {
+    display: block;
+}
+.links {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+.links a {
+    color: #48bb78;
+    text-decoration: none;
+    font-weight: 600;
+}
+.links a:hover {
+    text-decoration: underline;
+}
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 1rem;
+    color: #666;
+    text-decoration: none;
+}
+.back-link:hover {
+    color: #48bb78;
+}
+.password-hint {
+    font-size: 0.85rem;
+    color: #718096;
+    margin-top: 0.3rem;
+}
