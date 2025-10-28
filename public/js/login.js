@@ -1,18 +1,30 @@
-const form = document.getElementById('loginForm');
-const errorDiv = document.getElementById('error');
-const successDiv = document.getElementById('success');
-const submitBtn = document.getElementById('submitBtn');
-
-form.addEventListener('submit', async (e) => {
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    errorDiv.classList.remove('active');
-    successDiv.classList.remove('active');
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Обробка...';
+    const submitBtn = document.getElementById('submitBtn');
+    const errorDiv = document.getElementById('error');
+    const successDiv = document.getElementById('success');
 
-    const email = document.getElementById('email').value;
+    // Очистка повідомлень
+    errorDiv.textContent = '';
+    successDiv.textContent = '';
+    errorDiv.style.display = 'none';
+    successDiv.style.display = 'none';
+
+    // Отримання даних форми
+    const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
+
+    // Валідація
+    if (!email || !password) {
+        errorDiv.textContent = "Всі поля обов'язкові";
+        errorDiv.style.display = 'block';
+        return;
+    }
+
+    // Блокуємо кнопку
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Вхід...';
 
     try {
         const response = await fetch('/api/login', {
@@ -20,27 +32,30 @@ form.addEventListener('submit', async (e) => {
             headers: {
                 'Content-Type': 'application/json',
             },
+            credentials: 'include', // ВАЖЛИВО для cookies
             body: JSON.stringify({ email, password }),
         });
 
         const data = await response.json();
 
         if (response.ok) {
-            successDiv.textContent = '✓ ' + data.message;
-            successDiv.classList.add('active');
+            successDiv.textContent = 'Успішний вхід! Перенаправлення...';
+            successDiv.style.display = 'block';
 
+            // Затримка для показу повідомлення
             setTimeout(() => {
                 window.location.href = '/secret';
             }, 1000);
         } else {
-            errorDiv.textContent = '✗ ' + data.error;
-            errorDiv.classList.add('active');
+            errorDiv.textContent = data.error || 'Помилка входу';
+            errorDiv.style.display = 'block';
             submitBtn.disabled = false;
             submitBtn.textContent = 'Увійти';
         }
-    } catch (err) {
-        errorDiv.textContent = "✗ Помилка з'єднання з сервером";
-        errorDiv.classList.add('active');
+    } catch (error) {
+        console.error('Login error:', error);
+        errorDiv.textContent = "Помилка з'єднання з сервером";
+        errorDiv.style.display = 'block';
         submitBtn.disabled = false;
         submitBtn.textContent = 'Увійти';
     }
